@@ -18,8 +18,10 @@ router.post('/', checkAccountPayload, checkAccountNameUnique, (req, res, next) =
   .catch(next)
 })
 
-router.put('/:id', (req, res, next) => {
-  // DO YOUR MAGIC
+router.put('/:id', checkAccountId, checkAccountPayload, (req, res, next) => {
+  accountsModel.updateById(req.params.id, req.body)
+  .then(result => res.json(result))
+  .catch(next);
 });
 
 router.delete('/:id', checkAccountId, (req, res, next) => {
